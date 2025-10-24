@@ -30,7 +30,7 @@ def parse(commits: list[Commit]) -> dict[Commit, str]:
     place_diff_commit(c)
     # large_files and excluded_files are now discarded, maybe in future...?
     content, _, _ = get_diff(c)
-    result[c] = base64.b64decode(content)
+    result[c] = base64.b64decode(content).decode("utf-8")
     delete_diff_commit(c)
 
   return result

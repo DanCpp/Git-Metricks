@@ -1,23 +1,26 @@
 import json
-import datetime
 
 from commit import Commit
 
 
-commits: list[Commit] = []
+def parse() -> (list[Commit], dict[str, list[Commit]], set):
 
-commit_by_name: dict[str, list[Commit]] = dict()
+  commits: list[Commit] = []
 
-people: set = set()
+  commit_by_name: dict[str, list[Commit]] = dict()
 
-with open('./test-data/data.json', 'r') as file:
-  data = json.load(file)['data']
+  people: set = set()
 
-for c in data:
-  new_commit: Commit = Commit(c)
-  commits.append(new_commit)
-  if new_commit.commit_author_name in commit_by_name:
-    commit_by_name[new_commit.commit_author_name].append(new_commit)
-  else:
-    commit_by_name[new_commit.commit_author_name] = [new_commit]
-  people.add(new_commit.commit_author_name)
+  with open('./test-data/data.json', 'r') as file:
+    data = json.load(file)['data']
+
+  for c in data:
+    new_commit: Commit = Commit(c)
+    commits.append(new_commit)
+    if new_commit.commit_author_name in commit_by_name:
+      commit_by_name[new_commit.commit_author_name].append(new_commit)
+    else:
+      commit_by_name[new_commit.commit_author_name] = [new_commit]
+    people.add(new_commit.commit_author_name)
+
+  return commits, commit_by_name, people

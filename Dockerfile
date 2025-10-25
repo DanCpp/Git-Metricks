@@ -12,5 +12,6 @@ COPY . .
 
 RUN python3 -m pip install --break-system-packages -r ./requirements.txt
 
+EXPOSE 8050
 
 ENTRYPOINT python3 src/app/main.py

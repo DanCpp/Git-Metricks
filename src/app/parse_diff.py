@@ -8,7 +8,6 @@ def place_diff_commit(c: Commit):
   result = subprocess.run(["bash", "./src/init_diff_data.sh", c.commit_hash])
 
   if result.returncode != 0:
-    print("Poshlo vse nahuy")
     raise KeyError
   
 def get_diff(c: Commit) -> (str, list[str], list[str]):
@@ -21,7 +20,6 @@ def delete_diff_commit(c: Commit):
   result = subprocess.run(["rm", "-f", f"./test-data/data_{c.commit_hash}.json"])
 
   if result.returncode != 0:
-    print("Poshlo vse nahuy blyat")
     raise KeyError
 
 def parse(commits: list[Commit]) -> dict[Commit, str]:

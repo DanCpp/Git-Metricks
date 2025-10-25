@@ -9,7 +9,7 @@ def parse() -> (list[Commit], dict[str, list[Commit]], set):
 
   commit_by_name: dict[str, list[Commit]] = dict()
 
-  people: set = set()
+  people: list[str] = []
 
   with open('./test-data/data.json', 'r') as file:
     data = json.load(file)['data']
@@ -21,6 +21,6 @@ def parse() -> (list[Commit], dict[str, list[Commit]], set):
       commit_by_name[new_commit.commit_author_name].append(new_commit)
     else:
       commit_by_name[new_commit.commit_author_name] = [new_commit]
-    people.add(new_commit.commit_author_name)
-
+    people.append(new_commit.commit_author_name)
+  people = sorted(people)
   return commits, commit_by_name, people

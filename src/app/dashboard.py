@@ -30,7 +30,6 @@ def build_time_commits(people: list[str], commit_by_author: dict[str, list[Commi
         
 
 def create_commits_timeline(commit_by_author: dict[str, list[Commit]]) -> go.Figure:
-    # Собираем все даты коммитов
     all_dates = []
     for commits in commit_by_author.values():
         for commit in commits:
@@ -39,21 +38,17 @@ def create_commits_timeline(commit_by_author: dict[str, list[Commit]]) -> go.Fig
     if not all_dates:
         return px.line(title='Нет данных о коммитах')
     
-    # Сортируем даты
     all_dates.sort()
     
-    # Создаем временную шкалу
     fig = go.Figure()
     
     for author, commits in commit_by_author.items():
         if commits:
-            # Группируем коммиты по дате
             date_counts = defaultdict(int)
             for commit in commits:
                 date = str(commit.commit_date.date())
                 date_counts[date] += 1
             
-            # Сортируем даты
             dates = sorted(date_counts.keys())
             counts = [date_counts[date] for date in dates]
             
@@ -74,7 +69,7 @@ def create_commits_timeline(commit_by_author: dict[str, list[Commit]]) -> go.Fig
     
     return fig
 
-# График распределения коммитов по дням недели
+
 def create_weekday_chart(commit_by_author: dict[str, list[Commit]]) -> go.Figure:
     weekday_names = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
     weekday_data = []

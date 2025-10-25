@@ -1,9 +1,0 @@
-FROM ubuntu:latest
-
-WORKDIR ./app
-
-COPY . .
-
-RUN apt-get install python3.12.3 && pip install --break-system-packages -r ./requirements.txt
-
-ENTRYPOINT python3 src/app/main.py

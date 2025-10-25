@@ -30,7 +30,7 @@ def calculate_KPI(diff: dict[Commit, str], people: list[str], commit_by_name: di
                 elif changes_str and changes_str[0] == '-' and changes_str[:3] != "---":
                     cnt_del += 1
 
-            metric =  (math.log(abs(cnt_add - cnt_del * 0.5) * len(people_commits) + 1) / math.log10(last_dura.total_seconds() / 60 + 1)) ** 0.5
+            metric =  10 * (math.log(abs(cnt_add - cnt_del * 0.5) * len(people_commits) + 1) / math.log10(last_dura.total_seconds() / 60 + 1)) ** 0.5
 
             sum_metric[author_name] = metric
             last_date = people_commit.commit_date
